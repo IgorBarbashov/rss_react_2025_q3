@@ -1,14 +1,18 @@
-import { Component } from 'react';
+import { Component, type ContextType } from 'react';
 import { Main } from './Main';
-import type { MainViewModelProps, MainViewModelState } from './main.models.ts';
+import type { MainViewModelProps, MainViewModelState } from './main.models';
 import { type BookDto, bookService } from '@entities/Book';
-import { normalizeSearchString, validateSearchString } from './main.helpers.ts';
-import { storage, STORAGE_KEYS } from '@shared/libs';
+import { normalizeSearchString, validateSearchString } from './main.helpers';
+import { storage, STORAGE_KEYS, NotificationContext } from '@shared/libs';
 
 export class MainViewModel extends Component<
   MainViewModelProps,
   MainViewModelState
 > {
+  static contextType = NotificationContext;
+
+  declare context: ContextType<typeof NotificationContext>;
+
   constructor(props: MainViewModelProps) {
     super(props);
 
@@ -36,6 +40,8 @@ export class MainViewModel extends Component<
   }
 
   async onSearchButtonClick(): Promise<void> {
+    const { showNotification } = this.context;
+
     const normalizedSearchString = normalizeSearchString(
       this.state.searchString
     );
@@ -63,7 +69,7 @@ export class MainViewModel extends Component<
 
       storage.setItem(STORAGE_KEYS.SEARCH_STRING, normalizedSearchString);
     } catch (error) {
-      console.error((error as Error)?.message);
+      showNotification((error as Error)?.message);
     } finally {
       this.setState({ isFetching: false });
     }
