@@ -1,8 +1,8 @@
 import { Component } from 'react';
-import { Main } from '@pages/Main';
+import { MainViewModel } from '@pages/Main';
 
 export class App extends Component {
   render() {
-    return <Main />;
+    return <MainViewModel />;
   }
 }
