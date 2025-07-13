@@ -1,5 +1,5 @@
-- [Task URL]()
-- Screenshot showing the result of Task's completion
-- [Deployment URL of your application]()
-- Submittion Date / Deadline Date
-- Your self-check of Task's completion result
+1. Task: 
+2. Screenshot:
+3. Deployment: 
+4. Done __.__.2025 / deadline __.__.2025
+5. Score: ___ / ___
