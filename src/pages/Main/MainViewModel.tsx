@@ -3,6 +3,7 @@ import { Main } from './Main';
 import type { MainViewModelProps, MainViewModelState } from './main.models.ts';
 import { type BookDto, bookService } from '@entities/Book';
 import { normalizeSearchString, validateSearchString } from './main.helpers.ts';
+import { storage, STORAGE_KEYS } from '@shared/libs';
 
 export class MainViewModel extends Component<
   MainViewModelProps,
@@ -44,18 +45,19 @@ export class MainViewModel extends Component<
 
     try {
       const list: BookDto[] = await bookService.searchBooks(
-        this.state.searchString
+        normalizedSearchString
       );
 
       this.setState((prevState: MainViewModelState) => ({
         list,
         prevSearchString: prevState.searchString,
-        isFetching: false,
       }));
 
-      // save to localStorage
+      storage.setItem(STORAGE_KEYS.SEARCH_STRING, normalizedSearchString);
     } catch (error) {
       console.error((error as Error)?.message);
+    } finally {
+      this.setState({ isFetching: false });
     }
   }
 

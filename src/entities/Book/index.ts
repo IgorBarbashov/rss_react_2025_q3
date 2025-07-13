@@ -1,2 +1,2 @@
 export type { BookDto } from './book.model';
-export { bookService } from './book.service.ts';
+export { bookService } from './book.service';

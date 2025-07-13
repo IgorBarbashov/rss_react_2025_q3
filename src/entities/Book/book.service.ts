@@ -1,5 +1,5 @@
-import { getUrl } from './book.helpers.ts';
-import type { BookDto } from './book.model.ts';
+import { getUrl } from './book.helpers';
+import type { BookDto } from './book.model';
 
 export const bookService = {
   async searchBooks(searchString: string): Promise<BookDto[]> {
