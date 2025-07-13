@@ -1,0 +1,5 @@
+- [Task URL]()
+- Screenshot showing the result of Task's completion
+- [Deployment URL of your application]()
+- Submittion Date / Deadline Date
+- Your self-check of Task's completion result
