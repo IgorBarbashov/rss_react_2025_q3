@@ -25,21 +25,19 @@ export class MainViewModel extends Component<
 
     this.onSearchStringChange = this.onSearchStringChange.bind(this);
     this.onSearchButtonClick = this.onSearchButtonClick.bind(this);
+    this.searchBooks = this.searchBooks.bind(this);
   }
 
   componentDidMount() {
-    const searchString = storage.getItem<string>(STORAGE_KEYS.SEARCH_STRING);
+    const searchString =
+      storage.getItem<string>(STORAGE_KEYS.SEARCH_STRING) ?? '';
 
-    if (searchString) {
-      this.setState({ searchString });
-    }
+    this.setState({ searchString }, () => {
+      this.searchBooks();
+    });
   }
 
-  onSearchStringChange(searchString: string): void {
-    this.setState({ searchString });
-  }
-
-  async onSearchButtonClick(): Promise<void> {
+  async searchBooks(): Promise<void> {
     const { showNotification } = this.context;
 
     const normalizedSearchString = normalizeSearchString(
@@ -73,6 +71,14 @@ export class MainViewModel extends Component<
     } finally {
       this.setState({ isFetching: false });
     }
+  }
+
+  onSearchStringChange(searchString: string): void {
+    this.setState({ searchString });
+  }
+
+  onSearchButtonClick(): void {
+    this.searchBooks();
   }
 
   render() {
