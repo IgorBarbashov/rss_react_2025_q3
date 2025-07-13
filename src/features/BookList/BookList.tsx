@@ -9,12 +9,17 @@ export class BookList extends PureComponent<BookListProps> {
 
     return (
       <div className={styles.container}>
+        {!isFetching && !list.length ? (
+          <div className={styles.noData}>Нет данных</div>
+        ) : (
+          <div className={isFetching ? styles.listContainer : ''}>
+            {list.map((book) => (
+              <Book key={book.key} book={book} />
+            ))}
+          </div>
+        )}
+
         {isFetching && <div className={styles.loader}>Loading...</div>}
-        <div className={isFetching ? styles.lisContainer : ''}>
-          {list.map((book) => (
-            <Book key={book.key} book={book} />
-          ))}
-        </div>
       </div>
     );
   }
