@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { SearchBar } from '@features/SearchBar';
 import { BookList } from '@features/BookList';
-import type { MainProps } from './main.models.ts';
+import type { MainProps } from './main.models';
 
 export class Main extends Component<MainProps> {
   render() {

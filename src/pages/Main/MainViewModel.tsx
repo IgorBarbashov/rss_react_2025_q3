@@ -19,7 +19,7 @@ export class MainViewModel extends Component<
     this.state = {
       list: [],
       searchString: '',
-      prevSearchString: '',
+      prevSearchString: null,
       isFetching: false,
     };
 

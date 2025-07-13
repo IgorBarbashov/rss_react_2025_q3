@@ -3,7 +3,7 @@ import type { BookDto } from '@entities/Book';
 export interface MainViewModelState {
   list: BookDto[];
   searchString: string;
-  prevSearchString: string;
+  prevSearchString: string | null;
   isFetching: boolean;
 }
 
