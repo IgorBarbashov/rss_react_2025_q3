@@ -7,7 +7,7 @@ export const STORAGE_KEYS = {
 };
 
 export const storage = {
-  setItem(key: string, obj: RawData) {
+  setItem<T = RawData>(key: string, obj: T) {
     const serializedObj = safeJSON.stringify(obj);
 
     if (serializedObj !== null) {
@@ -15,12 +15,12 @@ export const storage = {
     }
   },
 
-  getItem(key: string): RawData | null {
+  getItem<T = RawData>(key: string): T | null {
     const serializedObj = localStorage.getItem(key);
 
     return serializedObj === null
       ? serializedObj
-      : safeJSON.parse(serializedObj);
+      : safeJSON.parse<T>(serializedObj);
   },
 
   removeItem(key: string) {

@@ -1,7 +1,7 @@
 type RawData = string | number | Record<string | number, unknown>;
 
 export const safeJSON = {
-  stringify: (obj: RawData): string | null => {
+  stringify: <T = RawData>(obj: T): string | null => {
     try {
       return JSON.stringify(obj);
     } catch {
@@ -9,7 +9,7 @@ export const safeJSON = {
     }
   },
 
-  parse: (str: string): RawData | null => {
+  parse: <T = RawData>(str: string): T | null => {
     try {
       return JSON.parse(str);
     } catch {

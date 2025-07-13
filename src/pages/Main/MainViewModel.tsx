@@ -23,6 +23,14 @@ export class MainViewModel extends Component<
     this.onSearchButtonClick = this.onSearchButtonClick.bind(this);
   }
 
+  componentDidMount() {
+    const searchString = storage.getItem<string>(STORAGE_KEYS.SEARCH_STRING);
+
+    if (searchString) {
+      this.setState({ searchString, prevSearchString: searchString });
+    }
+  }
+
   onSearchStringChange(searchString: string): void {
     this.setState({ searchString });
   }
