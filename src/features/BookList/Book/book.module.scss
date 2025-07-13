@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  width: 100%;
+}
+
+.title,
+.year,
+.author {
+  border-bottom: 1px solid lightblue;
+}
+
+.title {
+  width: 25%;
+}
+
+.year {
+  width: 5%;
+}
+
+.author {
+  flex-grow: 1;
+}
