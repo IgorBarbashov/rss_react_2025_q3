@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { Main } from './Main';
-// import { DEFAULT_OFFSET, DEFAULT_PAGE_NUMBER } from './main.config';
 import type { MainViewModelProps, MainViewModelState } from './main.models.ts';
+import { bookService } from '@entities/Book';
 
 export class MainViewModel extends Component<
   MainViewModelProps,
@@ -22,7 +22,7 @@ export class MainViewModel extends Component<
   };
 
   onSearchButtonClick = (): void => {
-    console.log('fetch data...', this.state.searchString);
+    bookService.searchBooks(this.state.searchString);
     // set isLoading
     // trim
     // check for changes
