@@ -7,15 +7,18 @@ export class SearchBar extends PureComponent<SearchBarProps> {
   };
 
   render() {
-    const { searchString, onSearchButtonClick } = this.props;
+    const { searchString, onSearchButtonClick, isFetching } = this.props;
 
     return (
       <div>
         <input
           value={searchString}
           onChange={this.onSearchStringChangeHandler}
+          disabled={isFetching}
         />
-        <button onClick={onSearchButtonClick}>Искать</button>
+        <button onClick={onSearchButtonClick} disabled={isFetching}>
+          Искать
+        </button>
       </div>
     );
   }

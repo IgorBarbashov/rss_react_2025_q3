@@ -3,6 +3,13 @@ import type { BookListProps } from './bookList.model.ts';
 
 export class BookList extends PureComponent<BookListProps> {
   render() {
-    return <div>BookList</div>;
+    const { isFetching } = this.props;
+
+    return (
+      <>
+        {isFetching && <div>Loading...</div>}
+        <div>BookList</div>
+      </>
+    );
   }
 }

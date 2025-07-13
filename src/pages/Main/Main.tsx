@@ -5,8 +5,13 @@ import type { MainProps } from './main.models.ts';
 
 export class Main extends Component<MainProps> {
   render() {
-    const { list, searchString, onSearchStringChange, onSearchButtonClick } =
-      this.props;
+    const {
+      list,
+      searchString,
+      onSearchStringChange,
+      onSearchButtonClick,
+      isFetching,
+    } = this.props;
 
     return (
       <div>
@@ -14,8 +19,9 @@ export class Main extends Component<MainProps> {
           searchString={searchString}
           onSearchStringChange={onSearchStringChange}
           onSearchButtonClick={onSearchButtonClick}
+          isFetching={isFetching}
         />
-        <BookList list={list} />
+        <BookList list={list} isFetching={isFetching} />
       </div>
     );
   }

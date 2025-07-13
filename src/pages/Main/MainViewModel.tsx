@@ -27,7 +27,7 @@ export class MainViewModel extends Component<
     const searchString = storage.getItem<string>(STORAGE_KEYS.SEARCH_STRING);
 
     if (searchString) {
-      this.setState({ searchString, prevSearchString: searchString });
+      this.setState({ searchString });
     }
   }
 
@@ -70,7 +70,7 @@ export class MainViewModel extends Component<
   }
 
   render() {
-    const { list, searchString } = this.state;
+    const { list, searchString, isFetching } = this.state;
 
     return (
       <Main
@@ -78,6 +78,7 @@ export class MainViewModel extends Component<
         searchString={searchString}
         onSearchStringChange={this.onSearchStringChange}
         onSearchButtonClick={this.onSearchButtonClick}
+        isFetching={isFetching}
       />
     );
   }

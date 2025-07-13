@@ -14,4 +14,5 @@ export interface MainProps {
   searchString: string;
   onSearchStringChange: (searchString: string) => void;
   onSearchButtonClick: () => void;
+  isFetching: boolean;
 }
