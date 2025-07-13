@@ -1,9 +1,16 @@
 import { getUrl } from './book.helpers.ts';
+import type { BookDto } from './book.model.ts';
 
 export const bookService = {
-  searchBooks(searchString: string) {
-    const url = getUrl(searchString);
-    // fetch
-    console.log(url);
+  async searchBooks(searchString: string): Promise<BookDto[]> {
+    const url: string = getUrl(searchString);
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return (await response.json()).docs as BookDto[];
   },
 };

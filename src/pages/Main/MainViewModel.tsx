@@ -1,7 +1,8 @@
 import { Component } from 'react';
 import { Main } from './Main';
 import type { MainViewModelProps, MainViewModelState } from './main.models.ts';
-import { bookService } from '@entities/Book';
+import { type BookDto, bookService } from '@entities/Book';
+import { normalizeSearchString, validateSearchString } from './main.helpers.ts';
 
 export class MainViewModel extends Component<
   MainViewModelProps,
@@ -13,23 +14,50 @@ export class MainViewModel extends Component<
     this.state = {
       list: [],
       searchString: '',
+      prevSearchString: '',
       isFetching: false,
     };
+
+    this.onSearchStringChange = this.onSearchStringChange.bind(this);
+    this.onSearchButtonClick = this.onSearchButtonClick.bind(this);
   }
 
-  onSearchStringChange = (searchString: string): void => {
+  onSearchStringChange(searchString: string): void {
     this.setState({ searchString });
-  };
+  }
 
-  onSearchButtonClick = (): void => {
-    bookService.searchBooks(this.state.searchString);
-    // set isLoading
-    // trim
-    // check for changes
-    // fetch
-    // clear searchString
-    // setState
-  };
+  async onSearchButtonClick(): Promise<void> {
+    const normalizedSearchString = normalizeSearchString(
+      this.state.searchString
+    );
+
+    const isSearchStringValid = validateSearchString(
+      normalizedSearchString,
+      this.state.prevSearchString
+    );
+
+    if (!isSearchStringValid) {
+      return;
+    }
+
+    this.setState({ isFetching: true });
+
+    try {
+      const list: BookDto[] = await bookService.searchBooks(
+        this.state.searchString
+      );
+
+      this.setState((prevState: MainViewModelState) => ({
+        list,
+        prevSearchString: prevState.searchString,
+        isFetching: false,
+      }));
+
+      // save to localStorage
+    } catch (error) {
+      console.error((error as Error)?.message);
+    }
+  }
 
   render() {
     const { list, searchString } = this.state;
