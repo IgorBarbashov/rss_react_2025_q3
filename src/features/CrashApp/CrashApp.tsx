@@ -23,7 +23,9 @@ export class CrashApp extends Component<CrashAppProps, CrashAppState> {
     return (
       (isCrashed as unknown as { reason: string }).reason && (
         <div className={styles.container}>
-          <button onClick={this.onClickHandler}>CrashApp</button>
+          <button data-testid="CrashApp:button" onClick={this.onClickHandler}>
+            CrashApp
+          </button>
         </div>
       )
     );
